@@ -114,22 +114,23 @@ std::unique_ptr<middleware::runner> load_runner(const std::string& model_path) {
 
 int main(int argc, char** argv) {
     cmdline::parser cmd;
-    cmd.add<std::string>("encoder", 'e', "encoder axmodel", false, "./models/small-encoder.axmodel");
-    cmd.add<std::string>("decoder_main", 'm', "decoder_main axmodel", false, "./models/small-decoder-main.axmodel");
-    cmd.add<std::string>("decoder_loop", 'l', "decoder_loop axmodel", false, "./models/small-decoder-loop.axmodel");
-    cmd.add<std::string>("position_embedding", 'p', "position_embedding.bin", false, "./models/small-positional_embedding.bin");
-    cmd.add<std::string>("token", 't', "tokens txt", false, "./models/small-tokens.txt");
+    // cmd.add<std::string>("encoder", 'e', "encoder axmodel", false, "./models/small-encoder.axmodel");
+    // cmd.add<std::string>("decoder_main", 'm', "decoder_main axmodel", false, "./models/small-decoder-main.axmodel");
+    // cmd.add<std::string>("decoder_loop", 'l', "decoder_loop axmodel", false, "./models/small-decoder-loop.axmodel");
+    // cmd.add<std::string>("position_embedding", 'p', "position_embedding.bin", false, "./models/small-positional_embedding.bin");
+    // cmd.add<std::string>("token", 't', "tokens txt", false, "./models/small-tokens.txt");
+    cmd.add<std::string>("model_file", 'p', "model filename", false, "../models-ax650/small");
     cmd.add<std::string>("wav", 'w', "wav file", true, "");
     cmd.add<std::string>("model_type", 0, "tiny, small, large", false, "small");
     cmd.add<std::string>("language", 0, "en, zh", false, "zh");
     cmd.parse_check(argc, argv);
 
     // 0. get app args, can be removed from user's app
-    auto encoder_file = cmd.get<std::string>("encoder");
-    auto decoder_main_file = cmd.get<std::string>("decoder_main");
-    auto decoder_loop_file = cmd.get<std::string>("decoder_loop");
-    auto pe_file = cmd.get<std::string>("position_embedding");
-    auto token_file = cmd.get<std::string>("token");
+    auto encoder_file = cmd.get<std::string>("model_file") + "/small-encoder.axmodel";
+    auto decoder_main_file = cmd.get<std::string>("model_file") + "/small-decoder-main.axmodel";
+    auto decoder_loop_file = cmd.get<std::string>("model_file") + "/small-decoder-loop.axmodel";
+    auto pe_file = cmd.get<std::string>("model_file") + "/small-positional_embedding.bin";
+    auto token_file = cmd.get<std::string>("model_file") + "/small-tokens.txt";
     auto wav_file = cmd.get<std::string>("wav");
     auto model_type = cmd.get<std::string>("model_type");
     auto language = cmd.get<std::string>("language");
